@@ -1,0 +1,156 @@
+[
+	{	
+		"ad_mainName" : "xxxxxx",
+		"ad_name" : "首页专题广告位1",
+		"show_Category" : "photo",
+		"ad_Placement" : 1,
+		"display_Times" : 57,
+		"sort" : 1,
+		"size" : {
+			"width" : 735,
+			"height" : 90		
+		},
+		"time" : {
+			"start" : "2017-10-12",
+			"stop" : "2017-12-31"
+		},
+		"status" : true
+	},
+	{	
+		"ad_mainName" : "xxxxxx",
+		"ad_name" : "首页专题广告位1",
+		"show_Category" : "photo",
+		"ad_Placement" : 1,
+		"display_Times" : 57,
+		"sort" : 1,
+		"size" : {
+			"width" : 735,
+			"height" : 90		
+		},
+		"time" : {
+			"start" : "2017-10-12",
+			"stop" : "2017-12-31"
+		},
+		"status" : true
+	},
+	{	
+		"ad_mainName" : "xxxxxx",
+		"ad_name" : "首页专题广告位1",
+		"show_Category" : "photo",
+		"ad_Placement" : 1,
+		"display_Times" : 57,
+		"sort" : 1,
+		"size" : {
+			"width" : 735,
+			"height" : 90		
+		},
+		"time" : {
+			"start" : "2017-10-12",
+			"stop" : "2017-12-31"
+		},
+		"status" : true
+	},
+	{	
+		"ad_mainName" : "xxxxxx",
+		"ad_name" : "首页专题广告位1",
+		"show_Category" : "photo",
+		"ad_Placement" : 1,
+		"display_Times" : 57,
+		"sort" : 1,
+		"size" : {
+			"width" : 735,
+			"height" : 90		
+		},
+		"time" : {
+			"start" : "2017-10-12",
+			"stop" : "2017-12-31"
+		},
+		"status" : false
+	},
+	{	
+		"ad_mainName" : "xxxxxx",
+		"ad_name" : "首页专题广告位1",
+		"show_Category" : "photo",
+		"ad_Placement" : 1,
+		"display_Times" : 57,
+		"sort" : 1,
+		"size" : {
+			"width" : 735,
+			"height" : 90		
+		},
+		"time" : {
+			"start" : "2017-10-12",
+			"stop" : "2017-12-31"
+		},
+		"status" : false
+	},
+	{	
+		"ad_mainName" : "xxxxxx",
+		"ad_name" : "首页专题广告位1",
+		"show_Category" : "photo",
+		"ad_Placement" : 1,
+		"display_Times" : 57,
+		"sort" : 1,
+		"size" : {
+			"width" : 735,
+			"height" : 90		
+		},
+		"time" : {
+			"start" : "2017-10-12",
+			"stop" : "2017-12-31"
+		},
+		"status" : true
+	},
+	{	
+		"ad_mainName" : "xxxxxx",
+		"ad_name" : "首页专题广告位1",
+		"show_Category" : "photo",
+		"ad_Placement" : 1,
+		"display_Times" : 57,
+		"sort" : 1,
+		"size" : {
+			"width" : 735,
+			"height" : 90		
+		},
+		"time" : {
+			"start" : "2017-10-12",
+			"stop" : "2017-12-31"
+		},
+		"status" : false
+	},
+	{	
+		"ad_mainName" : "xxxxxx",
+		"ad_name" : "首页专题广告位1",
+		"show_Category" : "photo",
+		"ad_Placement" : 1,
+		"display_Times" : 57,
+		"sort" : 1,
+		"size" : {
+			"width" : 735,
+			"height" : 90		
+		},
+		"time" : {
+			"start" : "2017-10-12",
+			"stop" : "2017-12-31"
+		},
+		"status" : true
+	},
+	{	
+		"ad_mainName" : "xxxxxx",
+		"ad_name" : "首页专题广告位1",
+		"show_Category" : "photo",
+		"ad_Placement" : 1,
+		"display_Times" : 57,
+		"sort" : 1,
+		"size" : {
+			"width" : 735,
+			"height" : 90		
+		},
+		"time" : {
+			"start" : "2017-10-12",
+			"stop" : "2017-12-31"
+		},
+		"status" : true
+	}
+
+]

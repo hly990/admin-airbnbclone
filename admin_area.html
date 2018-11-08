@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en" class="fixed">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>BCS Admin</title>
+		<!--<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+		<link rel="icon" type="image/png" sizes="192x192" href="favicon/android-icon-192x192.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">-->
+		<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="vendor/Font-Awesome-master/css/font-awesome.css">
+		<link rel="stylesheet" href="vendor/animate.css/animate.css">
+		<link rel="stylesheet" href="stylesheets/css/style.css">
+		<link rel="stylesheet" type="text/css" href="vendor/diyUpload/css/webuploader.css">
+		<link rel="stylesheet" type="text/css" href="vendor/diyUpload/css/diyUpload.css">
+
+		<!------------------>
+		<link rel="stylesheet" href="vendor/bootstrap_validator/css/bootstrapValidator.min.css" />
+		<!------------------>
+
+		<script src="vendor/jquery/jquery-1.12.3.min.js"></script>
+		<script type="text/javascript" src="vendor/diyUpload/js/webuploader.html5only.min.js"></script>
+		<script type="text/javascript" src="vendor/diyUpload/js/diyUpload.js"></script>
+		<script type="text/javascript" src="vendor/jquery-tmpl/jquery.tmpl.min.js"></script>
+	</head>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		
+		#face {
+			margin: 0px auto;
+			width: 100%;
+			min-height: 400px;
+			background: #ECECEC
+		}
+		
+		#outface {
+			margin: 0px auto;
+			width: 100%;
+			min-height: 400px;
+			background: #ECECEC
+		}
+		
+		#front {
+			margin: 0px auto;
+			width: 100%;
+			min-height: 400px;
+			background: #ECECEC
+		}
+		
+		#end {
+			margin: 0px auto;
+			width: 100%;
+			min-height: 400px;
+			background: #ECECEC
+		}
+		
+		#engine {
+			margin: 0px auto;
+			width: 100%;
+			min-height: 400px;
+			background: #ECECEC
+		}
+		
+		#box {
+			margin: 0px auto;
+			width: 100%;
+			min-height: 400px;
+			background: #ECECEC
+		}
+	</style>
+
+	<body>
+
+		<div class="wrap">
+			<div id="header" class="page-header"></div>
+
+			<div class="page-body">
+				<div class="left-sidebar">
+					<div class="left-sidebar-header">
+						<div class="left-sidebar-title">Navigation</div>
+						<div class="left-sidebar-toggle c-hamburger c-hamburger--htla hidden-xs" data-toggle-class="left-sidebar-collapsed" data-target="html">
+							<span></span>
+						</div>
+					</div>
+					<div id="left-nav" class="nano">
+						<div class="nano-content">
+							<nav id="nav">
+
+							</nav>
+						</div>
+					</div>
+				</div>
+				<div class="content">
+					<div class="content-header">
+						<div class="leftside-content-header">
+							<ul class="breadcrumbs">
+								<li><i class="fa fa-columns" aria-hidden="true"></i>
+									<a href="#">Model management</a>
+								</li>
+								<li>
+									<a>Add new models</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="row animated fadeInUp">
+						<div class="col-sm-12">
+							<h4 class="section-subtitle"><b>Add new models</b></h4>
+							<div class="panel">
+								<div class="panel-content">
+									<div class="row">
+										<div id="carInfo" class="col-md-12">
+											<form id="carForm" class="form-horizontal form-stripe" action="javascript:void(0)">
+												<div class="form-group">
+													<label for="brand" class="col-sm-2 control-label">Brand</label>
+													<div class="col-sm-10">
+														<select name="brand" id="brandlist" class="form-control" style="width: 100%">
+															<!--<option value="0" label="please select">please select</option>-->
+														</select>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="body_type" class="col-sm-2 control-label">Body Type</label>
+													<div class="col-sm-10">
+														<select name="body_type" id="body_typelist" class="form-control" style="width: 100%">
+															<!--<option value="0" label="please select">please select</option>-->
+														</select>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="model" class="col-sm-2 control-label">Model</label>
+													<div class="col-sm-10">
+														<input type="text" class="form-control" id="model" name="model" value="">
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="model" class="col-sm-2 control-label">Sort number</label>
+													<div class="col-sm-10">
+														<input type="text" class="form-control" id="model_add_sort" name="model_add_sort" value="">
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="description" class="col-sm-2 control-label">Description</label>
+													<div class="col-sm-10">
+														<textarea class="form-control" rows="3" id="description" name="description" placeholder="Write a comment" maxlength="100"></textarea>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="price" class="col-sm-2 control-label">Price</label>
+													<div class="col-sm-10">
+														<input type="text" class="form-control" id="price" name="price" value="" onkeyup="dealPrice(this)">
+													</div>
+												</div>
+												<div class="form-group" style="padding-top: 25px;">
+													<label for="readonly" class="col-sm-2 control-label">Car Cover</label>
+													<div class="col-sm-10" style="position: relative;">
+														<span style="position: absolute;top: -30px;left: 20px; font-size: 16px; " class="text-danger">Image upload size is not greater than: 300px * 170px</span>
+														<!--<input type="text" class="form-control" id="readonly" value="Read only content" readonly="readonly">-->
+														<div id="face" class="uploadPics">
+															<div id="faceupload"></div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group" style="padding-top: 25px;">
+													<label for="readonly" class="col-sm-2 control-label">Design</label>
+													<div class="col-sm-10" style="position: relative;">
+														<span style="position: absolute;top: -30px;left: 20px; font-size: 16px; " class="text-danger">Upload image size: 1920 * 955px</span>
+														<!--<input type="text" class="form-control" id="readonly" value="Read only content" readonly="readonly">-->
+														<div id="outface" class="uploadPics">
+															<div id="outfaceupload"></div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group" style="padding-top: 25px;">
+													<label for="readonly" class="col-sm-2 control-label">Drive System</label>
+													<div class="col-sm-10" style="position: relative;">
+														<span style="position: absolute;top: -30px;left: 20px; font-size: 16px; " class="text-danger">Upload image size: 1920 * 955px</span>
+														<!--<input type="text" class="form-control" id="readonly" value="Read only content" readonly="readonly">-->
+														<div id="front" class="uploadPics">
+															<div id="frontupload"></div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group" style="padding-top: 25px;">
+													<label for="readonly" class="col-sm-2 control-label">Comfort & Safety</label>
+													<div class="col-sm-10" style="position: relative;">
+														<span style="position: absolute;top: -30px;left: 20px; font-size: 16px; " class="text-danger">Upload image size: 1920 * 955px</span>
+														<!--<input type="text" class="form-control" id="readonly" value="Read only content" readonly="readonly">-->
+														<div id="end" class="uploadPics">
+															<div id="endupload"></div>
+														</div>
+													</div>
+												</div>
+
+												<div class="form-group" style="padding-top: 25px;">
+													<label for="readonly" class="col-sm-2 control-label">Technology Highlights</label>
+													<div class="col-sm-10" style="position: relative;">
+														<span style="position: absolute;top: -30px;left: 20px; font-size: 16px; " class="text-danger">Upload image size: 1920 * 955px</span>
+														<!--<input type="text" class="form-control" id="readonly" value="Read only content" readonly="readonly">-->
+														<div id="engine" class="uploadPics">
+															<div id="engineupload"></div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group" style="padding-top: 25px;">
+													<label for="readonly" class="col-sm-2 control-label">Equipment & Accessories</label>
+													<div class="col-sm-10" style="position: relative;">
+														<span style="position: absolute;top: -30px;left: 20px; font-size: 16px; " class="text-danger">Upload image size: 1920 * 955px</span>
+														<!--<input type="text" class="form-control" id="readonly" value="Read only content" readonly="readonly">-->
+														<div id="box" class="uploadPics">
+															<div id="boxupload"></div>
+														</div>
+													</div>
+												</div>
+
+												<div class="form-group">
+													<div class="col-sm-offset-5 col-sm-1">
+														<a class="btn btn-primary disabled saveInfo">Save</a>
+													</div>
+													<div class="col-sm-offset-1 col-sm-1">
+														<a class="btn btn-primary" href="admin_carlist.html">Back</a>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="content-wait hidden">
+						<div class="three-bound">
+							<span class="one"></span>
+							<span class="two"></span>
+							<span class="three"></span>
+						</div>
+						<div class="content-error hidden">
+							<div class="error-box">
+								<img src="images/error.png" />
+							</div>
+						</div>
+					</div>
+					<div class="content-imageError hidden" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%; background-color: rgba(0,0,0,.6);">
+						<div class="panel panel-default animated bounceIn col-xs-5" style="padding: 0;position: fixed; top: 40%;left: 40%;">
+							<div class="panel-heading">Image Upload Error</div>
+							<div class="panel-body imageUploadMsg text-danger" style="font-weight: 800;">
+							</div>
+							<span class="close" style="width: 40px;height: 40px;line-height:40px;background-color: rgba(0,0,0,.9);position: absolute;top: -20px;right: -20px;border-radius: 50%;color: #fff;font-weight: 800;text-align: center;">X</span>
+						</div>
+					</div>
+					<div class="content-loadError hidden" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%; background-color: rgba(0,0,0,.6);">
+						<div class="panel panel-default animated bounceIn col-xs-5" style="padding: 0;position: fixed; top: 40%;left: 40%;">
+							<div class="panel-heading">Load Error</div>
+							<div class="panel-body imageUploadMsg text-danger" style="font-weight: 800;">
+							</div>
+						</div>
+					</div>
+				</div>
+				<a href="#" class="scroll-to-top"><i class="fa fa-angle-double-up"></i></a>
+			</div>
+		</div>
+		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+		<script src="vendor/nano-scroller/nano-scroller.js"></script>
+		<script src="javascripts/utils.js"></script>
+		<script src="javascripts/admin_area.js"></script>
+
+		<!--------------->
+		<!--表单验证-->
+		<script type="text/javascript" src="vendor/bootstrap_validator/js/bootstrapValidator.min.js"></script>
+		<script type="text/javascript" src="javascripts/formValidator.js"></script>
+		<!--------------->
+
+	</body>
+
+</html>
