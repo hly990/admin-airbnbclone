@@ -81,13 +81,16 @@
 					</div>
 					<div class="row animated fadeInRight">
 						<div class="col-sm-12">
-							<h4 class="section-subtitle"><b>活动场地列表</b></h4>
-							<div style="position: absolute;top: 0px;right: 14px;" class="hidden-sm searchBar">
-								<div style="margin-left: -3px;margin-right: 25px;display: inline-block;">
-									<input class="form-control  searchBar searchContent" type="text" style="width: 300px;" align="bottom" />
-								</div>
-								<div style="display: inline-block;"><button style="margin-bottom: 1px;margin-left: -30px;border-radius: 5px;" class="btn btn-success searchBtn">Search!</button></div>
-							</div>
+							<h4 class="section-subtitle"><b>活动场地列表</b>
+								<a class="btn btn-primary pull-right " href="admin_area_add.html">Add</a>
+							</h4>
+							<!--<div style="position: absolute;top: 0px;right: 14px;" class="hidden-sm searchBar">-->
+								<!--<div style="margin-left: -3px;margin-right: 25px;display: inline-block;">-->
+									<!--<input class="form-control  searchBar searchContent" type="text" style="width: 300px;" align="bottom" />-->
+								<!--</div>-->
+								<!--<div style="display: inline-block;"><button style="margin-bottom: 1px;margin-left: -30px;border-radius: 5px;" class="btn btn-success searchBtn">Search!</button></div>-->
+							<!--</div>-->
+
 							<div style="position: absolute;top: 0px;right: 14px;" class="hidden-sm search-error hidden">
 								<p>Sorry,Search has some problems !</p>
 							</div>
@@ -189,17 +192,19 @@
 				<td class="price">{{$value.price}}</td>
 				<td>
 					<div class="btn-group btn-group-xs">
-						<button class="btn btn-transparent getInfo" data-id="{{$value.modelId}}"><i class="fa fa-eye"></i>
+						<!--<button class="btn btn-transparent getInfo" data-id="{{$value.areaId}}"><i class="fa fa-eye"></i>-->
+                <!--</button>-->
+						<button class="btn btn-transparent editInfo" data-id="{{$value.areaId}}"><i class="fa fa-pencil"></i>
                 </button>
-						<button class="btn btn-transparent editInfo" data-id="{{$value.modelId}}"><i class="fa fa-pencil"></i>
-                </button>
-						<button class="btn btn-transparent removeTip" data-id="{{$value.modelId}}"><i class="fa fa-times"></i>
+						<button class="btn btn-transparent removeTip" data-id="{{$value.areaId}}"><i class="fa fa-times"></i>
                 </button>
 					</div>
 				</td>
 			</tr>
 			{{/each}}
 		</script>
+
+
 
 	</body>
 

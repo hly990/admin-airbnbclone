@@ -1,156 +1,369 @@
 /**
  * Created by helingyun on 2017/6/18.
  */
-var API_URI_PRE="https://www.buycarsmart.com.au/smartcar/";
-//    API_URI_PRE="http://localhost:8081/smartcar/";
+API_URI_PRE="https://kfer.cn/airbnbclone/";
+IMAGE_ROOT="https://kfer.cn/";
+
 $(document).ready(function() {
 	$("#header").load("header.html");
 	$("#nav").load("include.html", function() {
-		$("#car").addClass("has-child-item open-item active-item");
-		$("#admin_addnewcar").addClass("active-item");
+		$("#area").addClass("has-child-item open-item active-item");
+		$("#admin_arealist").addClass("active-item");
 		$.getScript("javascripts/template-script.min.js");
 		$.getScript("javascripts/template-init.min.js");
 	});
 	var type = getQueryString("type");
 
-	//get bandlist info
-	bandList();
+	$('#descriptioniption_detail').parent().html('<script type="text/plain" id="description" style="width:100%;height:240px;">'+$('#descriptioniption_detail').val()+'</script>');
+	//实例化编辑器
+	var um = UM.getEditor('description');
 
-	//get bodytypelist info
-	bodyTypeList();
+	var imageObj = {
+		smallCoverURL: '',
+		bigCoverURL: '',
+		frontuploadURL: '',
+		contentImageIds:''
+
+	}
 
 	//upload
-	UploadFun();
+	UploadFun(imageObj);
 
-	//formVaild
-	formValidator("#carForm");
-	
-	addInfo();
+	addInfo(imageObj);
+
+	//formVaild();
+
+	//see More photos
+	$(".seeMore>button").each(function() {
+		$(this).on('click', function() {
+			$(this).siblings('.more').fadeIn(1000);
+			$(this).fadeOut(50);
+		});
+	});
+
+	//deletePics
+
+	//front-row
+	deletePics('.front-row .img-box>i', API_URI_PRE+'/admin/area/admin_deleteContentImage.do');
+
+	//see Big picture
+	seeBigPics();
+
+	//alert($("#container").val())
+	if($("#container")){
+		//百度地图
+		$.getScript('http://api.map.baidu.com/api?v=2.0&ak=Ikd2A16tuZY9jviM4wRNkO2Tu3DT5lwK&callback=InitMap')
+	}
+
 
 });
 
-function bandList() {
-	$.ajax({
-		type: "get",
-		url: API_URI_PRE+"admin/model/admin_listBrandBy.do",
-		dataType: 'json',
-		success: function(data) {
-
-			//merge template brandlist
-			var htmlstr = '<option value="-1">Please Selected</option>';
-			for(var i = 0, len = data.data.length; i < len; i++) {
-				htmlstr += '<option value="' + data.data[i].brandId + '">' + data.data[i].name + '</option>';
-			}
-			$("#brandlist").html(htmlstr);
-
-			//vaild brandlist
-			brandListVaild();
-
-		},
-		error: function(error) {
-			console.log(error);
-		}
-	});
-
-	function brandListVaild() {
-		$("#brandlist").change(function() {
-			//revert
-			$(this).parent().parent().removeClass('has-error has-success');
-
-			//valid
-			if($(this).val() == -1) {
-
-				$(this).parent().parent().addClass('has-error');
-				$(".saveInfo").addClass('disabled');
-			} else {
-				$(this).parent().parent().addClass('has-success');
-				$(".saveInfo").removeClass('disabled');
-			}
-		})
-	}
+function loadScript() {
+	var script = document.createElement("script");
+	script.src = "http://api.map.baidu.com/api?v=2.0&ak=Ikd2A16tuZY9jviM4wRNkO2Tu3DT5lwK&callback=InitMap";
+	document.body.appendChild(script);
 }
 
-function bodyTypeList() {
-	$.ajax({
-		type: "get",
-		url:  API_URI_PRE+"admin/model/admin_listBodyTypeBy.do",
-		dataType: 'json',
-		success: function(data) {
+function InitMap(){
 
-			//merge template  bodyTypeList
-			var htmlstr = '<option value="-1">Please Selected</option>';;
-			for(var i = 0, len = data.data.length; i < len; i++) {
-				htmlstr += '<option value="' + data.data[i].bodyTypeId + '">' + data.data[i].name + '</option>';
+	map=new BMap.Map("container");
+
+	var positon_lat = $("#address_lat").val()?$("#address_lat").val():"116.43"
+	var positon_lng = $("#address_lng").val()?$("#address_lng").val():"39.93"
+
+	var point=new BMap.Point(positon_lng,positon_lat);//默认北京的经纬度点
+
+	map.centerAndZoom(point,18);
+
+	map.addOverlay(new BMap.Marker(point));//添加标注
+
+	map.enableScrollWheelZoom();
+
+	var autocompleteOptions={
+
+		location:map,
+
+		types:"",
+
+		onSearchComplete:function(autocompleteResult){
+
+			//alert("本次搜索的关键字:"+autocompleteResult.keyword);
+
+			//alert("本次搜索结果总数:"+autocompleteResult.getNumPois());
+
+			for(var i=0;i<autocompleteResult.getNumPois();i++){
+
+				var poi=autocompleteResult.getPoi(i);
+
+				console.log(poi);
+
 			}
-			$("#body_typelist").html(htmlstr);
-
-			//bodyTypeList valid;
-			bodyTypeListVaild();
 
 		},
-		error: function(error) {
-			console.log(error);
+
+		input:"textInput"
+	};
+
+	autocomplete=new BMap.Autocomplete(autocompleteOptions);
+
+	autocomplete.addEventListener("onhighlight",function(e){
+
+		var str="";
+
+		var _value=e.fromitem.value;
+
+		if(e.fromitem.index > -1){
+
+			value = _value.province + _value.city + _value.district + _value.street + _value.business;
+
 		}
+
+		str = "FromItem index = " + e.fromitem.index + " value = " + value;
+
+		value = "";
+
+		if(e.toitem.index > -1){
+
+			_value = e.toitem.value;
+
+			value = _value.province + _value.city + _value.district + _value.street + _value.business;
+
+		}
+
+		//str += "<br/>ToItem index = " + e.toitem.index + " value = " + value;
+
+		//document.getElementById("searchResultPanel").innerHTML = str;
+
 	});
 
-	function bodyTypeListVaild() {
-		$("#body_typelist").change(function() {
-			//revert
-			$(this).parent().parent().removeClass('has-error has-success');
+	autocomplete.addEventListener("onconfirm",function(e){
 
-			//valid
-			if($(this).val() == -1) {
+		var _value = e.item.value;
 
-				$(this).parent().parent().addClass('has-error');
-				$(".saveInfo").addClass('disabled');
-			} else {
-				$(this).parent().parent().addClass('has-success');
-				$(".saveInfo").removeClass('disabled');
-			}
-		})
-	}
+		myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+
+		//document.getElementById("searchResultPanel").innerHTML = "onconfirm index = " + e.item + "myValue = " + myValue;
+
+		setPlace();
+
+	});
+
 }
 
-function UploadFun() {
+function setPlace(){
 
-	var faceuploadURL = '',
-		outfaceuploadURL = '',
-		frontuploadURL = '',
-		enduploadURL = '',
-		engineuploadURL = '',
-		boxuploadURL = ''; //图片地址
+	map.clearOverlays();//清除地图上所有覆盖物
 
-	var count = 0;
-	$('#faceupload').diyUpload({
+	var local=new BMap.LocalSearch(map,{
 
-		url: 'https://www.buycarsmart.com.au/smartcar/admin/file/file_upload_260_158.do',
+		//智能搜索
+		onSearchComplete:function(){
+
+			var pp=local.getResults().getPoi(0).point;//获取第一个智能搜索的结果
+
+			map.centerAndZoom(pp,18);
+
+			map.addOverlay(new BMap.Marker(pp));//添加标注
+
+			$("#address_lat").val(pp.lat);
+			$("#address_lng").val(pp.lng);
+
+			//alert("lat:"+$("#address_lat").val()+" lng:"+$("#address_lng").val())
+			$("#address").val(document.getElementById("textInput").value)
+		}
+
+	});
+
+	local.search(myValue);
+
+}
+
+function InputTextClick(){
+
+	var keyword=document.getElementById("textInput").value;
+
+	if(keyword!=""){
+
+		console.log(autocomplete);
+
+		autocomplete.search(keyword);
+
+	}
+
+}
+
+function UploadFun(imageObj) {
+
+	var URLs = {
+
+	}
+
+	$('#smallCover').diyUpload({
+
+		url: API_URI_PRE+'/admin/media/file_upload_400_300.do',
+
 		success: function(data) {
-			if(data.code == 1) {
-					$(".content-imageError").removeClass('hidden');
-					$(".imageUploadMsg").html(data.msg);
-					$(".close").click(function() {
-						$(".content-imageError").addClass('hidden');
-					})
-					return false;
-				}
 
-			if(faceuploadURL.length === 0) {
-				faceuploadURL += data.url;
-			} else {
-				faceuploadURL = faceuploadURL + ',' + data.url;
+			if(data[0] == 'ERR') {
+				$(".content-imageError").removeClass('hidden');
+				$(".imageUploadMsg").html(data.msg);
+				$(".close").click(function() {
+					$(".content-imageError").addClass('hidden');
+				})
+				return false;
 			}
-			$(data.fileId).find('.diyFileName').attr('data-url',data.url);
-			saveUpload();
-            return true;
+
+			imageObj.smallCoverURL += data[2];
+
+			//$(data.fileId).find('.diyFileName').attr('data-url',data[2]);
+			$("#curr_smallCoverURL").attr('data-value',data[2])
+			$("#curr_smallCoverURL").attr('src',IMAGE_ROOT+data[2])
+			return true;
 		},
 
 		error: function(err) {
 
 			$(".content-imageError").removeClass('hidden');
-					$(".imageUploadMsg").html('Upload picture failed, please upload again');
-					$(".close").click(function() {
-						$(".content-imageError").addClass('hidden');
-					})
+			$(".imageUploadMsg").html('Upload picture failed, please upload again');
+			$(".close").click(function() {
+				$(".content-imageError").addClass('hidden');
+			})
+
+
+		},
+		buttonText: 'Upload',
+
+		chunked: true,
+
+		// 分片大小
+
+		chunkSize: 512 * 1024,
+
+		//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
+
+		fileNumLimit: 1,
+
+		fileSizeLimit: 500000 * 1024,
+
+		fileSingleSizeLimit: 50000 * 1024,
+
+		accept: {}
+
+	});
+
+
+	$('#bigCover').diyUpload({
+
+		url: API_URI_PRE+'/admin/media/file_upload_1600_1100.do',
+
+		success: function(data) {
+
+			if(data[0] == 'ERR') {
+				$(".content-imageError").removeClass('hidden');
+				$(".imageUploadMsg").html(data.msg);
+				$(".close").click(function() {
+					$(".content-imageError").addClass('hidden');
+				})
+				return false;
+			}
+
+			imageObj.bigCoverURL += data[2];
+
+			$("#curr_bigCoverURL").attr('data-value',data[2])
+			$("#curr_bigCoverURL").attr('src',IMAGE_ROOT+data[2])
+
+			return true;
+		},
+
+		error: function(err) {
+
+			$(".content-imageError").removeClass('hidden');
+			$(".imageUploadMsg").html('Upload picture failed, please upload again');
+			$(".close").click(function() {
+				$(".content-imageError").addClass('hidden');
+			})
+
+
+		},
+		buttonText: 'Upload',
+
+		chunked: true,
+
+		// 分片大小
+
+		chunkSize: 512 * 1024,
+
+		//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
+
+		fileNumLimit: 1,
+
+		fileSizeLimit: 500000 * 1024,
+
+		fileSingleSizeLimit: 50000 * 1024,
+
+		accept: {}
+
+	});
+
+
+	$('#frontupload').diyUpload({
+
+		url: API_URI_PRE+'/admin/media/file_upload_800_350.do',
+
+		success: function(data) {
+
+			if(data[0] == 'ERR') {
+				$(".content-imageError").removeClass('hidden');
+				$(".imageUploadMsg").html(data.msg);
+				$(".close").click(function() {
+					$(".content-imageError").addClass('hidden');
+				})
+				return false;
+			}
+
+			var frontuploadURL = data[2]
+			//提交ContentImage
+			$.ajax({
+				type: "get",
+				url: API_URI_PRE+"admin/area/admin_addContentImage.do",
+				data: {
+					areaId: getQueryString('pk'),
+					imageUrl: data[2]
+				},
+				dataType: "json",
+				success: function(data) {
+
+					// if(imageObj.frontuploadURL.length === 0) {
+					// 	imageObj.frontuploadURL += frontuploadURL;
+					// } else {
+					// 	imageObj.frontuploadURL = imageObj.frontuploadURL + ',' + frontuploadURL;
+					// }
+
+					if(imageObj.contentImageIds.length === 0) {
+						imageObj.contentImageIds += data[1];
+					} else {
+						imageObj.contentImageIds = imageObj.contentImageIds + ',' + data[1];
+					}
+
+					$("#contentImages").append(
+						'<span class="img-box">'
+						+'<img class="canBig" data-value="'+frontuploadURL+'" id="curr_frontuploadURL" style="height: 56px; width: 100px;" src="https://kfer.cn/'+frontuploadURL+'" />'
+						+'<i data-id="{{data.areaId}}">X</i>'
+						+'</span>'
+					)
+					return true;
+				}
+			});
+
+		},
+
+		error: function(err) {
+
+			$(".content-imageError").removeClass('hidden');
+			$(".imageUploadMsg").html('Upload picture failed, please upload again');
+			$(".close").click(function() {
+				$(".content-imageError").addClass('hidden');
+			})
 
 
 		},
@@ -175,425 +388,115 @@ function UploadFun() {
 
 	});
 
-	$('#outfaceupload').diyUpload({
-
-		url: 'https://www.buycarsmart.com.au/smartcar/admin/file/file_upload_1920_955.do',
-
-		success: function(data) {
-
-			if(data.code == 1) {
-					$(".content-imageError").removeClass('hidden');
-					$(".imageUploadMsg").html(data.msg);
-					$(".close").click(function() {
-						$(".content-imageError").addClass('hidden');
-					})
-					return false;
-				}
-
-			if(outfaceuploadURL.length === 0) {
-				outfaceuploadURL += data.url;
-			} else {
-				outfaceuploadURL = outfaceuploadURL + ',' + data.url;
-			}
-			$(data.fileId).find('.diyFileName').attr('data-url',data.url);
-			saveUpload();
-return true;
-		},
-
-		error: function(err) {
-
-			$(".content-imageError").removeClass('hidden');
-					$(".imageUploadMsg").html('Upload picture failed, please upload again');
-					$(".close").click(function() {
-						$(".content-imageError").addClass('hidden');
-					})
-
-
-		},
-
-		buttonText: 'Upload',
-
-		chunked: true,
-
-		// 分片大小
-
-		chunkSize: 512 * 1024,
-
-		//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
-
-		fileNumLimit: 50,
-
-		fileSizeLimit: 500000 * 1024,
-
-		fileSingleSizeLimit: 50000 * 1024,
-
-		accept: {}
-
-	});
-
-	$('#frontupload').diyUpload({
-
-		url: 'https://www.buycarsmart.com.au/smartcar/admin/file/file_upload_1920_955.do',
-
-		success: function(data) {
-			
-			if(data.code == 1) {
-					$(".content-imageError").removeClass('hidden');
-					$(".imageUploadMsg").html(data.msg);
-					$(".close").click(function() {
-						$(".content-imageError").addClass('hidden');
-					})
-					return false;
-				}
-		
-
-			if(frontuploadURL.length === 0) {
-				frontuploadURL += data.url;
-			} else {
-				frontuploadURL = frontuploadURL + ',' + data.url;
-			}
-$(data.fileId).find('.diyFileName').attr('data-url',data.url);
-			saveUpload();
-return true;
-		},
-
-		error: function(err) {
-
-			$(".content-imageError").removeClass('hidden');
-					$(".imageUploadMsg").html('Upload picture failed, please upload again');
-					$(".close").click(function() {
-						$(".content-imageError").addClass('hidden');
-					})
-
-
-		},
-
-		buttonText: 'Upload',
-
-		chunked: true,
-
-		// 分片大小
-
-		chunkSize: 512 * 1024,
-
-		//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
-
-		fileNumLimit: 50,
-
-		fileSizeLimit: 500000 * 1024,
-
-		fileSingleSizeLimit: 50000 * 1024,
-
-		accept: {}
-
-	});
-
-	$('#endupload').diyUpload({
-
-		url: 'https://www.buycarsmart.com.au/smartcar/admin/file/file_upload_1920_955.do',
-
-		success: function(data) {
-
-			if(data.code == 1) {
-					$(".content-imageError").removeClass('hidden');
-					$(".imageUploadMsg").html(data.msg);
-					$(".close").click(function() {
-						$(".content-imageError").addClass('hidden');
-					})
-					return false;
-				}
-
-			if(enduploadURL.length === 0) {
-				enduploadURL += data.url;
-			} else {
-				enduploadURL = enduploadURL + ',' + data.url;
-			}
-$(data.fileId).find('.diyFileName').attr('data-url',data.url);
-			saveUpload();
-return true;
-		},
-
-		error: function(err) {
-
-			$(".content-imageError").removeClass('hidden');
-					$(".imageUploadMsg").html('Upload picture failed, please upload again');
-					$(".close").click(function() {
-						$(".content-imageError").addClass('hidden');
-					})
-
-
-		},
-
-		buttonText: 'Upload',
-
-		chunked: true,
-
-		// 分片大小
-
-		chunkSize: 512 * 1024,
-
-		//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
-
-		fileNumLimit: 50,
-
-		fileSizeLimit: 500000 * 1024,
-
-		fileSingleSizeLimit: 50000 * 1024,
-
-		accept: {}
-
-	});
-
-	$('#engineupload').diyUpload({
-
-		url: 'https://www.buycarsmart.com.au/smartcar/admin/file/file_upload_1920_955.do',
-
-		success: function(data) {
-			
-			if(data.code == 1) {
-					$(".content-imageError").removeClass('hidden');
-					$(".imageUploadMsg").html(data.msg);
-					$(".close").click(function() {
-						$(".content-imageError").addClass('hidden');
-					})
-					return false;
-				}
-
-
-			if(engineuploadURL.length === 0) {
-				engineuploadURL += data.url;
-			} else {
-				engineuploadURL = engineuploadURL + ',' + data.url;
-			}
-$(data.fileId).find('.diyFileName').attr('data-url',data.url);
-			saveUpload();
-return true;
-		},
-
-		error: function(err) {
-
-			$(".content-imageError").removeClass('hidden');
-					$(".imageUploadMsg").html('Upload picture failed, please upload again');
-					$(".close").click(function() {
-						$(".content-imageError").addClass('hidden');
-					})
-
-
-		},
-
-		buttonText: 'Upload',
-
-		chunked: true,
-
-		// 分片大小
-
-		chunkSize: 512 * 1024,
-
-		//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
-
-		fileNumLimit: 50,
-
-		fileSizeLimit: 500000 * 1024,
-
-		fileSingleSizeLimit: 50000 * 1024,
-
-		accept: {}
-
-	});
-
-	$('#boxupload').diyUpload({
-
-		url: 'https://www.buycarsmart.com.au/smartcar/admin/file/file_upload_1920_955.do',
-
-		success: function(data) {
-			
-			if(data.code == 1) {
-					$(".content-imageError").removeClass('hidden');
-					$(".imageUploadMsg").html(data.msg);
-					$(".close").click(function() {
-						$(".content-imageError").addClass('hidden');
-					})
-					return false;
-				}
-			
-			if(boxuploadURL.length === 0) {
-				boxuploadURL += data.url;
-			} else {
-				boxuploadURL = boxuploadURL + ',' + data.url;
-			}
-$(data.fileId).find('.diyFileName').attr('data-url',data.url);
-			saveUpload();
-			return true;
-		},
-
-		error: function(err) {
-
-			$(".content-imageError").removeClass('hidden');
-					$(".imageUploadMsg").html('Upload picture failed, please upload again');
-					$(".close").click(function() {
-						$(".content-imageError").addClass('hidden');
-					})
-
-
-		},
-
-		buttonText: 'Upload',
-
-		chunked: true,
-
-		// 分片大小
-
-		chunkSize: 512 * 1024,
-
-		//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
-
-		fileNumLimit: 50,
-
-		fileSizeLimit: 500000 * 1024,
-
-		fileSingleSizeLimit: 50000 * 1024,
-
-		accept: {}
-
-	});
-
-	function saveUpload() {
-
-		var imageURLObj = {
-			faceuploadURL: faceuploadURL,
-			outfaceuploadURL: outfaceuploadURL,
-			frontuploadURL: frontuploadURL,
-			enduploadURL: enduploadURL,
-			engineuploadURL: engineuploadURL,
-			boxuploadURL: boxuploadURL
-		}
-
-		for(key in imageURLObj) {
-			console.log(key + ':' + imageURLObj[key]);
-			if(imageURLObj[key].length === 0) {
-				return;
-			}
-		}
-
-		$("a.saveInfo").removeClass("disabled");
-
-	}
-
 }
 
-function addInfo() { //添加
+function addInfo(imageObj) { //添加
 	$(".saveInfo")[0].onclick = function() {
-		if($("#brandlist").val() == -1) {
-			$("#brandlist").parent().parent().addClass('has-error');
-			$(this).addClass('disabled');
-			return;
-		} else if($("#body_typelist").val() == -1) {
-			$("#body_typelist").parent().parent().addClass('has-error');
-			$(this).addClass('disabled');
-			return;
-		} else {
-			var faceuploadURL="";
-			for(var i=0;i<$('#face .diyFileName').length;i++){
-				if(i == 0) {
-				    faceuploadURL = $('#face .diyFileName:eq('+i+')').attr('data-url');
-				} else {
-					faceuploadURL = faceuploadURL + ',' + $('#face .diyFileName:eq('+i+')').attr('data-url');
-				}
-			}
-			var outfaceuploadURL="";
-			for(var i=0;i<$('#outface .diyFileName').length;i++){
-				if(i == 0) {
-				    outfaceuploadURL = $('#outface .diyFileName:eq('+i+')').attr('data-url');
-				} else {
-					outfaceuploadURL = outfaceuploadURL + ',' + $('#outface .diyFileName:eq('+i+')').attr('data-url');
-				}
-			}
-			var frontuploadURL="";
-			for(var i=0;i<$('#front .diyFileName').length;i++){
-				if(i == 0) {
-				    frontuploadURL = $('#front .diyFileName:eq('+i+')').attr('data-url');
-				} else {
-					frontuploadURL = frontuploadURL + ',' + $('#front .diyFileName:eq('+i+')').attr('data-url');
-				}
-			}
-			var enduploadURL="";
-			for(var i=0;i<$('#end .diyFileName').length;i++){
-				if(i == 0) {
-				    enduploadURL = $('#end .diyFileName:eq('+i+')').attr('data-url');
-				} else {
-					enduploadURL = enduploadURL + ',' + $('#end .diyFileName:eq('+i+')').attr('data-url');
-				}
-			}
-			var engineuploadURL="";
-			for(var i=0;i<$('#engine .diyFileName').length;i++){
-				if(i == 0) {
-				    engineuploadURL = $('#engine .diyFileName:eq('+i+')').attr('data-url');
-				} else {
-					engineuploadURL = engineuploadURL + ',' + $('#engine .diyFileName:eq('+i+')').attr('data-url');
-				}
-			}
-			var boxuploadURL="";
-			for(var i=0;i<$('#box .diyFileName').length;i++){
-				if(i == 0) {
-				    boxuploadURL = $('#box .diyFileName:eq('+i+')').attr('data-url');
-				} else {
-					boxuploadURL = boxuploadURL + ',' + $('#box .diyFileName:eq('+i+')').attr('data-url');
-				}
-			}
-			$(".content-wait").removeClass("hidden"); // wait ajax info
-			$.ajax({
-				type: "post",
-				url:  API_URI_PRE+"admin/model/admin_addModelBy.do",
-				data: {
-					brandId: $("#brandlist").val(),
-					bodyTypeId: $("#body_typelist").val(),					
-					name: $("input[name='model']").val(),
-					des: $('#description').val(),
-					price: $("input[name='price']").val()?$("input[name='price']").val().replace(/\,/g,''):null,
-					sort:$('#model_add_sort').val(),
-					faceuploadURL: faceuploadURL,
-					outfaceuploadURL: outfaceuploadURL,
-					frontuploadURL: frontuploadURL,
-					enduploadURL: enduploadURL,
-					engineuploadURL: engineuploadURL,
-					boxuploadURL: boxuploadURL
-				},
-				dataType: "json",
-				success: function(data) {
-					if(data.result.code === 0) {
-						location.href = "admin_carlist.html";
-					}
-				},error:function(){
-					$(".content-loadError").removeClass('hidden');
-			$(".imageUploadMsg").html('The page load failed, please reload');
-			$(".close").click(function() {
-				$(".content-imageError").addClass('hidden');
-			})
-				}
-			});
+		$(".content-wait").removeClass("hidden"); // wait ajax info
 
+		var URLs = {}
+		for(var key in imageObj){
+			if(imageObj[key] !== ''){
+				URLs[key] = imageObj[key];
+			}
 		}
 
+		var data = {
+			name: $("input[name='name']").val(),
+			intro:$("input[name='intro']").val(),
+			description: UM.getEditor('description').getContent(),
+			price: $("input[name='price']").val(),
+			lat: $("#address_lat").val(),
+			lng: $("#address_lng").val(),
+			address: $("#address").val(),
+			contentImageIds: imageObj.contentImageIds
+		};
+
+		var smallCoverURL=$('#curr_smallCoverURL').attr('data-value');
+
+		if(smallCoverURL!=null && smallCoverURL.length>0){
+			data['smallCoverUrl']=smallCoverURL;
+		}
+
+		var bigCoverURL=$('#curr_bigCoverURL').attr('data-value');
+
+		if(bigCoverURL!=null && bigCoverURL.length>0){
+			data['bigCoverUrl']=bigCoverURL;
+		}
+
+
+
+		$.ajax({
+			type: "post",
+			url: API_URI_PRE+"admin/area/admin_addArea.do",
+			data: data,
+			dataType: "json",
+			success: function(data) {
+				if(data[0] == 'OK') {
+					location.href = "admin_arealist.html";
+				}
+			}
+		});
 	}
 }
 
-function dealPrice(obj){
-	obj.value=obj.value.replace(/[^0-9\-\+\.]/g,'');
-	if(obj.value.indexOf(".")>-1)obj.value=obj.value.substring(0,obj.value.indexOf(".")+3);
-	if(obj.value.split(".").length>2)obj.value=obj.value.substring(0,obj.value.lastIndexOf("."));
-	obj.value=toThousands(obj.value);
+
+function vaild(selector, tip, reg, contain1, contain2) {
+	$(selector).on('blur', function() {
+
+		$(tip).addClass('hidden').parent().parent().removeClass('has-error has-success');
+
+		if($(this).val() == '') {
+			$(tip).html(contain1).removeClass('hidden').parent().parent().addClass('has-error');
+		} else if(!reg.test($(this).val())) {
+			$(tip).html(contain2).removeClass('hidden').parent().parent().addClass('has-error');
+		} else {
+			$(tip).addClass('hidden').parent().parent().addClass('has-success');
+		}
+	});
 }
-function toThousands(num) {
-	var oldnum=num,num=num.split(".")[0],domnum='';
-	if(oldnum.indexOf(".")>-1){
-		domnum=oldnum.split(".")[1]?"."+oldnum.split(".")[1]:".";
-	}
-    var result = '';
-    while (num.length > 3) {
-        result = ',' + num.slice(-3) + result;
-        num = num.slice(0, num.length - 3);
-    }
-    if (num) { result = num + result; }
-    return result+domnum;
-   
+
+function deletePics(selector, url) {
+	$(selector).on('click', function() {
+		$(this).parent().addClass('hidden'); // remove img-box
+
+		$(".content-wait").removeClass("hidden"); // show ajax wait
+
+		$.ajax({ //ajax
+			type: "get",
+			url: url,
+			data: {
+				pk: $(this).attr('data-id') //data
+			},
+			success: function(data) {
+				console.log(data);
+				$(".content-wait").addClass("hidden"); // show ajax wait
+
+			},
+			error: function(data) {
+				$(".content-wait .three-bound").addClass('hidden');
+
+				$(".content-wait .content-error").removeClass('hidden'); //show the error tip
+			}
+		});
+	});
 }
+
+function seeBigPics() {
+	$(".canBig").each(function() {
+		$(this).on('click', function() {
+			var picSrc = $(this).attr('src');
+
+			$(".content-picBig").removeClass('hidden');
+
+			$(".picBig .bigPic").attr('src', picSrc);
+		});
+	});
+
+	$(".picBig .close").on('click', function() {
+		$(this).parent().parent().addClass('hidden');
+	});
+}
+
+
+

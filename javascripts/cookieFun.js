@@ -49,22 +49,22 @@ function deleteCookie(c_name){
 function deleteCookie2(c_name){
 	if(getCookie('sessionKey_admin')){
 		var cookie=getCookie('sessionKey_admin').split('_')[0];
-		$.ajax({
-        url: "https://www.buycarsmart.com.au/smartcar/admin/user/admin_logout.do",
-        type: "get",
-        async:false,
-        dataType: "json",
-        data: {
-            adminUserSessionId : cookie
-        },
-        success: function(data){
-        	console.log(data);
-        	deleteCookie('sessionKey_admin');
-        },
-        error:function(error){
-        	console.log(error);
-        }
-    });
+        // $.ajax({
+        // url: "https://www.buycarsmart.com.au/smartcar/admin/user/admin_logout.do",
+        // type: "get",
+        // async:false,
+        // dataType: "json",
+        // data: {
+        //     adminUserSessionId : cookie
+        // },
+        // success: function(data){
+        // 	console.log(data);
+        // 	deleteCookie('sessionKey_admin');
+        // },
+        // error:function(error){
+        // 	console.log(error);
+        // }
+    // });
   }else{
   	location.href = 'index.html';
   }

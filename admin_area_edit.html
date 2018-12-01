@@ -4,71 +4,61 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<title>BCS Admin</title>
-		<!--<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
-		<link rel="icon" type="image/png" sizes="192x192" href="favicon/android-icon-192x192.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">-->
+		<title>活动场地出租管理</title>
 		<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="vendor/Font-Awesome-master/css/font-awesome.css">
 		<link rel="stylesheet" href="vendor/animate.css/animate.css">
 		<link rel="stylesheet" href="stylesheets/css/style.css">
 		<link rel="stylesheet" type="text/css" href="vendor/diyUpload/css/webuploader.css">
 		<link rel="stylesheet" type="text/css" href="vendor/diyUpload/css/diyUpload.css">
+		<link href="vendor/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 
 		<!------------------>
 		<link rel="stylesheet" href="vendor/bootstrap_validator/css/bootstrapValidator.min.css" />
 		<!------------------>
 
-		<script src="vendor/jquery/jquery-1.12.3.min.js"></script>
-		<script type="text/javascript" src="vendor/diyUpload/js/webuploader.html5only.min.js"></script>
-		<script type="text/javascript" src="vendor/diyUpload/js/diyUpload.js"></script>
-		<script type="text/javascript" src="vendor/jquery-tmpl/jquery.tmpl.min.js"></script>
-		<script id="carTemplate" type="text/x-jquery-tmpl">
-
-		</script>
 	</head>
 	<style>
 		* {
 			margin: 0;
 			padding: 0;
 		}
-		
+
 		#face {
 			margin: 0px auto;
 			width: 100%;
 			min-height: 400px;
 			background: #ECECEC
 		}
-		
+
 		#outface {
 			margin: 0px auto;
 			width: 100%;
 			min-height: 400px;
 			background: #ECECEC
 		}
-		
+
 		#front {
 			margin: 0px auto;
 			width: 100%;
 			min-height: 400px;
 			background: #ECECEC
 		}
-		
+
 		#end {
 			margin: 0px auto;
 			width: 100%;
 			min-height: 400px;
 			background: #ECECEC
 		}
-		
+
 		#engine {
 			margin: 0px auto;
 			width: 100%;
 			min-height: 400px;
 			background: #ECECEC
 		}
-		
+
 		#box {
 			margin: 0px auto;
 			width: 100%;
@@ -77,11 +67,39 @@
 		}
 	</style>
 
+	<style type="text/css">
+
+		html{height:100%;}
+
+		body{height:100%;margin:0px;padding:0px;}
+
+		#container{
+
+			clear:both;
+
+			height:280px;
+
+			width:100%;
+
+		}
+
+	</style>
+
+
 	<body>
+
+	<!--<div id="result">-->
+
+		<!--<div id="searchResultPanel"></div>-->
+
+		<!--<input type="text" id="textInput" onclick="InputTextClick();" size="20">-->
+
+	<!--</div>-->
+
+	<!--<div id="container"></div>-->
 
 		<div class="wrap">
 			<div id="header" class="page-header"></div>
-
 			<div class="page-body">
 				<div class="left-sidebar">
 					<div class="left-sidebar-header">
@@ -103,22 +121,23 @@
 						<div class="leftside-content-header">
 							<ul class="breadcrumbs">
 								<li><i class="fa fa-columns" aria-hidden="true"></i>
-									<a href="#">Model management</a>
+									<a href="admin_arealist.html">场地管理</a>
 								</li>
 								<li>
-									<a>Edit model</a>
+									<a>编辑模式</a>
 								</li>
 							</ul>
 						</div>
 					</div>
 					<div class="row animated fadeInUp">
 						<div class="col-sm-12">
-							<h4 class="section-subtitle"><b>Edit model</b></h4>
+							<h4 class="section-subtitle"><b>编辑模式</b></h4>
 							<div class="panel">
 								<div class="panel-content">
 									<div class="row">
-										<div id="carInfo" class="col-md-12">
+										<div id="areaInfo" class="col-md-12">
 											<!--form-->
+
 										</div>
 									</div>
 								</div>
@@ -131,18 +150,18 @@
 							<span class="close">X</span>
 						</div>
 					</div>
-					<div class="content-wait">
-						<div class="three-bound">
-							<span class="one"></span>
-							<span class="two"></span>
-							<span class="three"></span>
-						</div>
-						<div class="content-error hidden">
-							<div class="error-box">
-								<img src="images/error.png" />
-							</div>
-						</div>
-					</div>
+					<!--<div class="content-wait">-->
+						<!--<div class="three-bound">-->
+							<!--<span class="one"></span>-->
+							<!--<span class="two"></span>-->
+							<!--<span class="three"></span>-->
+						<!--</div>-->
+						<!--<div class="content-error hidden">-->
+							<!--<div class="error-box">-->
+								<!--<img src="images/error.png" />-->
+							<!--</div>-->
+						<!--</div>-->
+					<!--</div>-->
 					<div class="content-imageError hidden" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%; background-color: rgba(0,0,0,.6);">
 						<div class="panel panel-default animated bounceIn col-xs-5" style="padding: 0;position: fixed; top: 40%;left: 40%;">
 							<div class="panel-heading">Image Upload Error</div>
@@ -158,49 +177,53 @@
 							</div>
 						</div>
 					</div>
+					</div>
 				</div>
-				<a href="#" class="scroll-to-top"><i class="fa fa-angle-double-up"></i></a>
+				<!--<a href="#" class="scroll-to-top"><i class="fa fa-angle-double-up"></i></a>-->
+
+
 			</div>
-		</div>
+
+
+
+
+	</div>
+
+
+<!--merge tamplate-->
+		<script type="text/javascript" src="javascripts/templateFun.js"></script>
+		<script type="text/javascript" src="javascripts/infoDetail.js"></script>
+
+		<script src="vendor/jquery/jquery-1.12.3.min.js"></script>
 		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 		<script src="vendor/nano-scroller/nano-scroller.js"></script>
+		<script type="text/javascript" src="vendor/diyUpload/js/webuploader.html5only.min.js"></script>
+		<script type="text/javascript" src="vendor/diyUpload/js/diyUpload.js"></script>
+		<script type="text/javascript" src="vendor/jquery-tmpl/jquery.tmpl.min.js"></script>
 		<script type="text/javascript" src="vendor/template-web/template-web.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="vendor/umeditor/umeditor.config.js"></script>
+		<script type="text/javascript" charset="utf-8" src="vendor/umeditor/umeditor.min.js"></script>
+		<script type="text/javascript" src="vendor/umeditor/lang/zh-cn/zh-cn.js"></script>
+
 		<script src="javascripts/utils.js"></script>
 		<script src="javascripts/admin_area_edit.js"></script>
 
-		<!--merge tamplate-->
-		<script type="text/javascript" src="javascripts/templateFun.js"></script>
-		<script type="text/javascript" src="javascripts/infoDetail.js"></script>
 		<script type="text/html" id="tpl-user">
-			<form id="carForm" class="form-horizontal form-stripe" action="javascript:void(0)">
+
+			<form id="areaForm" class="form-horizontal form-stripe" action="javascript:void(0)">
+
 				<div class="form-group">
-					<label for="brand" class="col-sm-2 control-label">Brand</label>
+					<label for="name" class="col-sm-2 control-label">名称</label>
 					<div class="col-sm-10">
-						<select name="brand" id="brandlist" class="form-control" style="width: 100%" data-value="{{Model.brandId}}">
-							<!--<option value="0" label="please select">please select</option>-->
-						</select>
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="body_type" class="col-sm-2 control-label">Body Type</label>
-					<div class="col-sm-10">
-						<select name="body_type" id="body_typelist" class="form-control" style="width: 100%" data-value="{{Model.bodyTypeId}}">
-							<!--<option value="0" label="please select">please select</option>-->
-						</select>
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="model" class="col-sm-2 control-label">Model</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" id="model" name="model" value="{{Model.name}}">
+						<input type="text" class="form-control" id="name" name="name" value="{{data.name}}">
 						<span id="modelTip" class="help-block hidden"></span>
 					</div>
 				</div>
-				
+
 				<div class="form-group">
-					<label for="model" class="col-sm-2 control-label">Sort Number</label>
+					<label for="intro" class="col-sm-2 control-label">简介</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" id="model_edit_sort" name="model_edit_sort" value="{{Model.sort}}">
+						<input type="text" class="form-control" id="intro" name="intro" value="{{data.intro}}">
 						<span id="modelTip" class="help-block hidden"></span>
 					</div>
 				</div>
@@ -208,223 +231,118 @@
 				<div class="form-group">
 					<label for="description" class="col-sm-2 control-label">Description</label>
 					<div class="col-sm-10">
-						<textarea class="form-control" rows="3" id="description" name="description" placeholder="Write a comment" maxlength="100">{{Model.des}}</textarea>
+						<input id="descriptioniption_detail" value="{{data.description}}" type="hidden"/>
 						<span id="descriptionTip" class="help-block hidden"></span>
 					</div>
 				</div>
+
 				<div class="form-group">
-					<label for="price" class="col-sm-2 control-label">Price</label>
+					<label for="price" class="col-sm-2 control-label">价格</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" id="price" name="price" value="{{Model.price}}"  onkeyup="dealPrice(this)">
+						<input type="text" class="form-control" id="price" name="price" value="{{data.price}}"  onkeyup="dealPrice(this)">
 						<span id="priceTip" class="help-block hidden"></span>
 					</div>
 				</div>
+
 				<div class="form-group">
-					<label for="readonly" class="col-sm-2 control-label">Current Car Cover</label>
+					<label for="readonly" class="col-sm-2 control-label">当前地址</label>
 					<div class="col-sm-10">
-						<img class='canBig' data-value="{{Model.logoUrl}}" id="curr_logoUrl" style="height: 56px; width: 100px;" src="https://www.buycarsmart.com.au/{{Model.logoUrl}}" />
+						<input type="text" id="address" value="{{data.address}}" onclick="InputTextClick();" size="100%" disabled>
+					</div>
+
+				</div>
+
+				<div id="map" class="form-group">
+					<label class="col-sm-2 control-label">输入新地址</label>
+					<div class="col-sm-10">
+						<input type="hidden" value="{{data.lat}}" id="address_lat"/>
+						<input type="hidden" value="{{data.lng}}" id="address_lng"/>
+						<input type="text" id="textInput" value="{{data.address}}" onclick="InputTextClick();" size="100%">
+
+						<div id="container"></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="intro" class="col-sm-2 control-label"></label>
+					<div class="col-sm-10">
+
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="readonly" class="col-sm-2 control-label">当前封面小图</label>
+					<div class="col-sm-10">
+						<img class='canBig' data-value="{{data.smallCoverUrl}}" id="curr_smallCoverURL" style="height: 56px; width: 100px;" src="https://kfer.cn/{{data.smallCoverUrl}}" />
+					</div>
+
+				</div>
+				<div class="form-group" style="padding-top: 25px;">
+					<label for="readonly" class="col-sm-2 control-label">上传封面小图</label>
+					<div class="col-sm-10" style="position: relative;">
+						<span style="position: absolute;top: -30px;left: 20px; font-size: 16px; " class="text-danger">Upload image size: 400px * 300px</span>
+						<div id="face" class="uploadPics" >
+							<div id="smallCover"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="readonly" class="col-sm-2 control-label">当前封面大图</label>
+					<div class="col-sm-10">
+						<img class='canBig' data-value="{{data.bigCoverUrl}}" id="curr_bigCoverURL" style="height: 56px; width: 100px;" src="https://kfer.cn/{{data.bigCoverUrl}}" />
 					</div>
 				</div>
 				<div class="form-group" style="padding-top: 25px;">
-					<label for="readonly" class="col-sm-2 control-label">Car Cover</label>
+					<label for="readonly" class="col-sm-2 control-label">上传封面大图</label>
 					<div class="col-sm-10" style="position: relative;">
-						<span style="position: absolute;top: -30px;left: 20px; font-size: 16px; " class="text-danger">Upload image size: 300px * 170px</span>
+						<span style="position: absolute;top: -30px;left: 20px; font-size: 16px; " class="text-danger">Upload image size: 1600px * 1100px</span>
 						<!--<input type="text" class="form-control" id="readonly" value="Read only content" readonly="readonly">-->
 						<div id="face" class="uploadPics" >
-							<div id="faceupload"></div>
+							<div id="bigCover"></div>
 						</div>
 					</div>
 				</div>
-				<div class="form-group appearance">
-					<label for="readonly" class="col-sm-2 control-label">Current Design</label>
-					<div class="col-sm-10">
 
-						{{each Appearance}} {{if $index
-						< 3}} <span class="img-box">
-							<img class='canBig curr_outface' style="height: 50px; width: 100px;" data-value="{{Model.imageUrl}}"   src="https://www.buycarsmart.com.au/{{$value.imageUrl}}" />
-							<i data-id="{{$value.configAppearanceId}}">X</i>
-							</span>
-							{{/if}} {{/each}}
-							<div class="seeMore" style='display: inline-block;' style='display: inline-block;'>
-								<button class="btn btn-success btn-sm">see More</button>
-								<span class="more" style='display: none;'>
-								{{each Appearance}}
-									{{if $index >=3}}
-									<span class="img-box">
-										<img class='canBig' style="height: 50px; width: 100px;" src="https://www.buycarsmart.com.au/{{$value.imageUrl}}"  />
-										<i data-id="{{$value.configAppearanceId}}" >X</i>									
-									</span> {{/if}} {{/each}} {{if Appearance.length
-								<=3}} <i>No more pictures</i>
-									{{/if}}
-									</span>
-							</div>
-
-					</div>
-				</div>
-				<div class="form-group" style="padding-top: 25px;">
-					<label for="readonly" class="col-sm-2 control-label">Design</label>
-					<div class="col-sm-10" style="position: relative;">
-						<span style="position: absolute;top: -30px;left: 20px; font-size: 16px; " class="text-danger">Upload image size: 1920 * 955px</span>
-						<!--<input type="text" class="form-control" id="readonly" value="Read only content" readonly="readonly">-->
-						<div id="outface" class="uploadPics">
-							<div id="outfaceupload"></div>
-						</div>
-					</div>
-				</div>
 				<div class="form-group front-row">
-
-					<label for="readonly" class="col-sm-2 control-label">Current Drive System</label>
-					<div class="col-sm-10">
-						{{each FrontRow}} {{if $index
-						< 3}} <span class="img-box">
-							<img class='canBig curr_front' data-value="{{$value.imageUrl}}" style="height: 50px; width: 100px;" src="https://www.buycarsmart.com.au/{{$value.imageUrl}}" />
-							<i data-id="{{$value.configFrontRowId}}">X</i>
+					<label for="readonly" class="col-sm-2 control-label">当前内容图片</label>
+					<div id="contentImages" class="col-sm-10">
+						<%if(data.contentImages != null) {%>
+							<% for (var i = 0; i < data.contentImages.length; i ++) { %>
+							<% var contentImage =data.contentImages[i]; %>
+							<span class="img-box">
+								<img class='canBig' data-value="{{contentImage.imageUrl}}" id="curr_frontuploadURL" style="height: 56px; width: 100px;" src="https://kfer.cn/{{contentImage.imageUrl}}" />
+								<i data-id="{{contentImage.contentImageId}}">X</i>
 							</span>
-							{{/if}} {{/each}}
-							<div class="seeMore" style='display: inline-block;'>
-								<button class="btn btn-success btn-sm">see More</button>
-								<span class="more" style='display: none;'>
-								{{each FrontRow}}
-									{{if $index >=3}}
-										<span class="img-box" >
-											<img class='canBig' style="height: 50px; width: 100px;" src="https://www.buycarsmart.com.au/{{$value.imageUrl}}"  />
-											<i data-id="{{$value.configFrontRowId}}">X</i>
-										</span> {{/if}} {{/each}} {{if FrontRow.length
-								<=3}} <i>No more pictures</i>
-									{{/if}}
-									</span>
-							</div>
-
+							<% } %>
+						<% } %>
 					</div>
 				</div>
 				<div class="form-group" style="padding-top: 25px;">
-					<label for="readonly" class="col-sm-2 control-label">Drive System</label>
+					<label for="readonly" class="col-sm-2 control-label">上传内容图片</label>
 					<div class="col-sm-10" style="position: relative;">
-						<span style="position: absolute;top: -30px;left: 20px; font-size: 16px; " class="text-danger">Upload image size: 1920 * 955px</span>
+						<span style="position: absolute;top: -30px;left: 20px; font-size: 16px; " class="text-danger">Upload image size: 800px * 350px</span>
 						<!--<input type="text" class="form-control" id="readonly" value="Read only content" readonly="readonly">-->
-						<div id="front" class="uploadPics">
+						<div id="face" class="uploadPics" >
 							<div id="frontupload"></div>
 						</div>
 					</div>
 				</div>
-				<div class="form-group back-row ">
 
-					<label for="readonly" class="col-sm-2 control-label">Current Comfort & Safety</label>
-					<div class="col-sm-10">
-						{{each BackRow}} {{if $index
-						< 3}} <span class="img-box">
-							<img class='canBig curr_end' data-value="{{$value.imageUrl}}" style="height: 50px; width: 100px;" src="https://www.buycarsmart.com.au/{{$value.imageUrl}}" />
-							<i data-id="{{$value.configBackRowId}}">X</i>
-							</span>
-							{{/if}} {{/each}}
-							<div class="seeMore" style='display: inline-block;'>
-								<button class="btn btn-success btn-sm">see More</button>
-								<span class="more" style='display: none;'>
-								{{each BackRow}}
-									{{if $index >=3}}
-										<span class="img-box" >
-											<img class='canBig' style="height: 50px; width: 100px;" src="https://www.buycarsmart.com.au/{{$value.imageUrl}}"  />
-											<i data-id="{{$value.configBackRowId}}">X</i>
-										</span> {{/if}} {{/each}} {{if BackRow.length
-								<=3}} <i>No more pictures</i>
-									{{/if}}
-									</span>
-							</div>
-
-					</div>
-				</div>
-				<div class="form-group" style="padding-top: 25px;">
-					<label for="readonly" class="col-sm-2 control-label">Comfort & Safety</label>
-					<div class="col-sm-10" style="position: relative;">
-						<span style="position: absolute;top: -30px;left: 20px; font-size: 16px; " class="text-danger">Upload image size: 1920 * 955px</span>
-						<!--<input type="text" class="form-control" id="readonly" value="Read only content" readonly="readonly">-->
-						<div id="end" class="uploadPics">
-							<div id="endupload"></div>
-						</div>
-					</div>
-				</div>
-				<div class="form-group engine">
-
-					<label for="readonly" class="col-sm-2 control-label">Current Technology Highlights</label>
-					<div class="col-sm-10">
-						{{each Engine}} {{if $index
-						< 3}} <span class="img-box">
-							<img class='canBig curr_engine' data-value="{{$value.imageUrl}}" style="height: 50px; width: 100px;" src="https://www.buycarsmart.com.au/{{$value.imageUrl}}" />
-							<i data-id="{{$value.configEngineId}}">X</i>
-							</span>
-							{{/if}} {{/each}}
-							<div class="seeMore" style='display: inline-block;'>
-								<button class="btn btn-success btn-sm">see More</button>
-								<span class="more" style='display: none;'>
-								{{each Engine}}
-									{{if $index >=3}}
-										<span class="img-box" >
-											<img class='canBig' style="height: 50px; width: 100px;" src="https://www.buycarsmart.com.au/{{$value.imageUrl}}"  />
-											<i data-id="{{$value.configEngineId}}">X</i>
-										</span> {{/if}} {{/each}} {{if Engine.length
-								<=3}} <i>No more pictures</i>
-									{{/if}}
-									</span>
-							</div>
-
-					</div>
-				</div>
-				<div class="form-group" style="padding-top: 25px;">
-					<label for="readonly" class="col-sm-2 control-label">Technology Highlights</label>
-					<div class="col-sm-10" style="position: relative;">
-						<span style="position: absolute;top: -30px;left: 20px; font-size: 16px; " class="text-danger">Upload image size: 1920 * 955px</span>
-						<!--<input type="text" class="form-control" id="readonly" value="Read only content" readonly="readonly">-->
-						<div id="engine" class="uploadPics">
-							<div id="engineupload"></div>
-						</div>
-					</div>
-				</div>
-				<div class="form-group trunk">
-
-					<label for="readonly" class="col-sm-2 control-label">Current Equipment & Accessories</label>
-					<div class="col-sm-10">
-						{{each Trunk}} {{if $index
-						< 3}} <span class="img-box">
-							<img class='canBig curr_box' data-value="{{$value.imageUrl}}" style="height: 50px; width: 100px;" src="https://www.buycarsmart.com.au/{{$value.imageUrl}}" />
-							<i data-id="{{$value.configTrunkId}}">X</i>
-							</span>
-							{{/if}} {{/each}}
-							<div class="seeMore" style='display: inline-block;'>
-								<button class="btn btn-success btn-sm">see More</button>
-								<span class="more" style='display: none;'>
-								{{each Trunk}}
-									{{if $index >=3}}
-										<span class="img-box" >
-											<img class='canBig' style="height: 50px; width: 100px;" src="https://www.buycarsmart.com.au/{{$value.imageUrl}}"  />
-											<i data-id="{{$value.configTrunkId}}">X</i>
-										</span> {{/if}} {{/each}} {{if Trunk.length
-								<=3}} <i>No more pictures</i>
-									{{/if}}
-									</span>
-							</div>
-
-					</div>
-				</div>
-				<div class="form-group" style="padding-top: 25px;">
-					<label for="readonly" class="col-sm-2 control-label">Equipment & Accessories</label>
-					<div class="col-sm-10" style="position: relative;">
-						<span style="position: absolute;top: -30px;left: 20px; font-size: 16px; " class="text-danger">Upload image size: 1920 * 955px</span>
-						<!--<input type="text" class="form-control" id="readonly" value="Read only content" readonly="readonly">-->
-						<div id="box" class="uploadPics">
-							<div id="boxupload"></div>
-						</div>
-					</div>
-				</div>
 				<div class="form-group">
 					<div class="col-xs-offset-5 col-xs-1">
 						<a class="btn btn-primary saveInfo">Save</a>
 					</div>
 					<div class="col-xs-offset-1 col-xs-1">
-						<a class="btn btn-primary" href="admin_carlist.html">Back</a>
+						<a class="btn btn-primary" href="admin_arealist.html">Back</a>
 					</div>
 				</div>
+
 			</form>
+
 		</script>
+
+
 	</body>
 
 </html>

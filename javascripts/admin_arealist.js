@@ -1,8 +1,7 @@
 /**
  * Created by helingyun on 2017/6/18.
  */
-//var API_URI_PRE="https://www.buycarsmart.com.au/smartcar/";
-API_URI_PRE="http://localhost:9000/airbnbclone/";
+API_URI_PRE="https://kfer.cn/airbnbclone/";
 $(document).ready(function() {
 	$("#header").load("header.html");
 	$("#nav").load("include.html", function() {
@@ -38,7 +37,7 @@ $(document).ready(function() {
 
 						$(".content-remove").addClass("hidden");
 						$(".content-remove>.panel").fadeOut(50);
-						
+
 						$(".removeTip").each(function() {
 							if($(this).attr('data-id') == id) {
 								$(this).parent().parent().parent().remove();

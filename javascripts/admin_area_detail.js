@@ -1,6 +1,8 @@
 /**
  * Created by helingyun on 2017/6/18.
  */
+API_URI_PRE="http://localhost:9000/airbnbclone/";
+
 $(document).ready(function() {
 	$("#header").load("header.html");
 	$("#nav").load("include.html", function() {
@@ -97,6 +99,7 @@ function infoDetail(query, href, selector) {
 		type: "get",
 		url: href + id,
 		selector: selector,
+		model:"edit",
 		fn: function() {
 
 		}

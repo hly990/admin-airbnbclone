@@ -11,13 +11,17 @@ function templateFun(obj){ //封装好的模版函数，基本不用动
     		
     		var objs = JSON.parse(data);
 
-			var dataList = objs[2];
+			var dataList;
+			if(obj.model == 'edit'){
+				dataList = objs[1];
+			} else {
+				dataList = objs[2];
+			}
 
 			var strData = '{"data":'+JSON.stringify(dataList)+'}'
 
 			var parseData = JSON.parse(strData);
 
-			data = JSON.parse(data)
 
 //  		判断当前页面是否是下面两个,如果是,就调用下面函数将最大的sort显示出来
 //     		var currentUrl = window.location.pathname;
@@ -26,41 +30,59 @@ function templateFun(obj){ //封装好的模版函数，基本不用动
 // 				}
 //     		console.log(data);
 
+			var currentUrl = window.location.pathname;
+			if(currentUrl.indexOf('/admin_arealist.html') !=-1 || currentUrl.indexOf('/admin_area_edit.html') != -1
+				|| currentUrl.indexOf('/admin_area_add.html') != -1) {
+
+				if(parseData.data.contentImages != undefined){
+					var contentImages = JSON.parse(parseData.data.contentImages)
+					parseData.data.contentImages = contentImages
+				}
+
+			}
+
 //  		调用函数将返回的数据传入tempalte函数
     		var result= template("tpl-user", parseData);
 			
     		$(obj.selector).html(result);
-    		
+
+			// var currentUrl = window.location.pathname;
+			// if(currentUrl.indexOf('/admin_area_edit.html') !=-1) {
+			// 	loadScript();
+			// }
     		
 //  		-------------------------
 //			pages
-			var pages = objs[1]
-			var pageCount = pages[0]
-			var pageNumber = pages[1]
-			var pageSize = pages[2]
-			//console.log("pageCount:"+pageCount+"&pageNumber:"+pageNumber+"&pageSize:"+pageSize);
-			//if(data.page){
-			if(pageCount/pageSize > parseInt(pageCount/pageSize)){
+			if(obj.model == 'edit'){
+				if(obj.fn){
+					obj.fn();
+				}
+			} else {
+				var pages = objs[1]
+				var pageCount = pages[0]
+				var pageNumber = pages[1]
+				var pageSize = pages[2]
+				//console.log("pageCount:"+pageCount+"&pageNumber:"+pageNumber+"&pageSize:"+pageSize);
+				//if(data.page){
+				if(pageCount/pageSize > parseInt(pageCount/pageSize)){
 
-				var totalPage = parseInt(pageCount/pageSize)+1;
+					var totalPage = parseInt(pageCount/pageSize)+1;
 
-			}else{
+				}else{
 
-				var totalPage = (pageCount/pageSize);
+					var totalPage = (pageCount/pageSize);
 
+				}
+				$('#pageer span.totalPage').html('/'+totalPage);
+				$('#pageer .currentCount').html(pageCount);
+				$('#pageer .currentCount').val(pageCount);
+				$('#pageer .current').html(pageNumber);
+				$('#pageer .current').val(pageNumber);
+
+				if(obj.fn){
+					obj.fn(totalPage);
+				}
 			}
-			$('#pageer span.totalPage').html('/'+totalPage);
-			$('#pageer .currentCount').html(pageCount);
-			$('#pageer .currentCount').val(pageCount);
-			$('#pageer .current').html(pageNumber);
-			$('#pageer .current').val(pageNumber);
-
-
-//  		--------------------
-    		
-    		if(obj.fn){
-    			obj.fn(totalPage);
-    		}
     	},error:function(){
     		$(".content-loadError").removeClass('hidden');
 			$(".imageUploadMsg").html('The page load failed, please reload');

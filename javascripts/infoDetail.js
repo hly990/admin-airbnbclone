@@ -7,12 +7,13 @@ function infoDetail(query,href,selector,f){ //封装好的进入详细页面功�
     templateFun({
     	type : "get",
     	url : href+id,
+		model:"edit",
     	selector : selector,
     	fn : function(){
     		
     		$(".content-wait").addClass("hidden"); // wait ajax info
-    		
-    		
+
+
     		if(f){
     			f();
     		}
