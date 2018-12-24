@@ -1,8 +1,8 @@
 /**
  * Created by helingyun on 2017/6/18.
  */
-API_URI_PRE="https://kfer.cn/airbnbclone/";
-IMAGE_ROOT="https://kfer.cn/";
+API_URI_PRE = "http://kfer.cn/airbnbclone/";
+IMAGE_ROOT = "http://kfer.cn/";
 
 $(document).ready(function() {
     $("#header").load("header.html");
@@ -14,6 +14,7 @@ $(document).ready(function() {
     var type = getQueryString("type");
 
     var imageObj = {
+        smallCoverURL: '',
         bigCoverURL: ''
     }
 
@@ -33,13 +34,67 @@ function UploadFun(imageObj) {
 
     }
 
-    $('#bigCover').diyUpload({
+    $('#smallCover').diyUpload({
 
-        url: API_URI_PRE+'/admin/media/file_upload_1600_1100.do',
+        url: API_URI_PRE + '/admin/media/file_upload_109_104.do',
 
         success: function(data) {
 
-            if(data[0] == 'ERR') {
+            if (data[0] == 'ERR') {
+                $(".content-imageError").removeClass('hidden');
+                $(".imageUploadMsg").html(data.msg);
+                $(".close").click(function() {
+                    $(".content-imageError").addClass('hidden');
+                })
+                return false;
+            }
+
+            imageObj.smallCoverURL += data[2];
+
+            //$(data.fileId).find('.diyFileName').attr('data-url',data[2]);
+            $("#curr_smallCoverURL").attr('data-value', data[2])
+            $("#curr_smallCoverURL").attr('src', IMAGE_ROOT + data[2])
+            return true;
+        },
+
+        error: function(err) {
+
+            $(".content-imageError").removeClass('hidden');
+            $(".imageUploadMsg").html('Upload picture failed, please upload again');
+            $(".close").click(function() {
+                $(".content-imageError").addClass('hidden');
+            })
+
+
+        },
+        buttonText: 'Upload',
+
+        chunked: true,
+
+        // 分片大小
+
+        chunkSize: 512 * 1024,
+
+        //最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
+
+        fileNumLimit: 1,
+
+        fileSizeLimit: 500000 * 1024,
+
+        fileSingleSizeLimit: 50000 * 1024,
+
+        accept: {}
+
+    });
+
+
+    $('#bigCover').diyUpload({
+
+        url: API_URI_PRE + '/admin/infoflow/file_upload_283_173.do',
+
+        success: function(data) {
+
+            if (data[0] == 'ERR') {
                 $(".content-imageError").removeClass('hidden');
                 $(".imageUploadMsg").html(data.msg);
                 $(".close").click(function() {
@@ -50,8 +105,8 @@ function UploadFun(imageObj) {
 
             imageObj.bigCoverURL += data[2];
 
-            $("#curr_bigCoverURL").attr('data-value',data[2])
-            $("#curr_bigCoverURL").attr('src',IMAGE_ROOT+data[2])
+            $("#curr_bigCoverURL").attr('data-value', data[2])
+            $("#curr_bigCoverURL").attr('src', IMAGE_ROOT + data[2])
 
             return true;
         },
@@ -96,32 +151,32 @@ function addInfo(imageObj) { //添加
         $(".content-wait").removeClass("hidden"); // wait ajax info
 
         var URLs = {}
-        for(var key in imageObj){
-            if(imageObj[key] !== ''){
+        for (var key in imageObj) {
+            if (imageObj[key] !== '') {
                 URLs[key] = imageObj[key];
             }
         }
 
         var data = {
             title: $("input[name='title']").val(),
-            link:$("input[name='link']").val(),
+            link: $("input[name='link']").val(),
             positionCode: $("input[name='positionCode']").val(),
             position: $("input[name='position']").val()
         };
 
-        var bigCoverURL=$('#curr_bigCoverURL').attr('data-value');
+        var bigCoverURL = $('#curr_bigCoverURL').attr('data-value');
 
-        if(bigCoverURL!=null && bigCoverURL.length>0){
-            data['coverUrl']=bigCoverURL;
+        if (bigCoverURL != null && bigCoverURL.length > 0) {
+            data['coverUrl'] = bigCoverURL;
         }
 
         $.ajax({
             type: "post",
-            url: API_URI_PRE+"admin/user/admin_addAd.do",
+            url: API_URI_PRE + "admin/user/admin_addAd.do",
             data: data,
             dataType: "json",
             success: function(data) {
-                if(data[0] == 'OK') {
+                if (data[0] == 'OK') {
                     location.href = "admin_ad_list.html";
                 }
             }
@@ -135,9 +190,9 @@ function vaild(selector, tip, reg, contain1, contain2) {
 
         $(tip).addClass('hidden').parent().parent().removeClass('has-error has-success');
 
-        if($(this).val() == '') {
+        if ($(this).val() == '') {
             $(tip).html(contain1).removeClass('hidden').parent().parent().addClass('has-error');
-        } else if(!reg.test($(this).val())) {
+        } else if (!reg.test($(this).val())) {
             $(tip).html(contain2).removeClass('hidden').parent().parent().addClass('has-error');
         } else {
             $(tip).addClass('hidden').parent().parent().addClass('has-success');
@@ -186,6 +241,3 @@ function seeBigPics() {
         $(this).parent().parent().addClass('hidden');
     });
 }
-
-
-

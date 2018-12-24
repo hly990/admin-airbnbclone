@@ -17,7 +17,7 @@ function go() {
         },
         success: function(data){
             if(data.result.code==0){
-                location.href = "admin_userlist.html";
+                location.href = "admin_articlelist.html";
             }else{
                 alert(data.result.msg);
             }

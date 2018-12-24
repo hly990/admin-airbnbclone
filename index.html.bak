@@ -1,0 +1,81 @@
+
+<!doctype html>
+<html lang="en" class="fixed accounts sign-in">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>BCS Admin</title>
+    <!--<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">-->
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="vendor/Font-Awesome-master/css/font-awesome.css">
+    <link rel="stylesheet" href="vendor/animate.css/animate.css">
+    <link rel="stylesheet" href="stylesheets/css/style.css">
+</head>
+
+<body>
+     
+
+
+<div class="wrap">
+    <div class="page-body animated slideInDown">
+        <div class="logo">
+        	<h4 style="text-align: center;font-size: 26px;" >聚云网内容管理</h4>
+        	
+        </div>
+        <div class="box">
+            <div class="panel mb-none">
+                <div class="panel-content bg-scale-0">
+                    <form id="form1" method="post">
+                        <div class="form-group mt-md">
+                            <span class="input-with-icon">
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                                    <i class="fa fa-envelope"></i>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                                <span class="input-with-icon">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                                    <i class="fa fa-key"></i>
+                                </span>
+                        </div>
+                        <!--<div class="form-group">-->
+                                <!--<span class="input-with-icon">-->
+                                    <!--<input type="password" class="form-control" id="verifyCode" name="verifyCode" placeholder="VerifyImage">-->
+                                    <!--<i class="fa fa-key"></i>-->
+                                <!--</span>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<img src="http://localhost:8080/smartcar/admin/sso/getVerifyImage.do" />-->
+                        <!--</div>-->
+
+                        <div class="form-group">
+                            <!--<button id="xxx" name="xxx" type="button " onclick="go()">xxx</button>-->
+                            <a href="#" class="btn btn-primary btn-block" onclick="go()">Login</a>
+                       </div>
+
+                    </form>
+                    <div id="log-out" class="text-center hidden">
+                    	<button class="btn btn-primary logoutBtn" onclick="out()">Log Out</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="vendor/jquery/jquery-1.12.3.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/nano-scroller/nano-scroller.js"></script>
+<script src="javascripts/template-script.min.js"></script>
+<script src="javascripts/template-init.min.js"></script>
+<script type="text/javascript" src="javascripts/cookieFun.js"></script>
+<script src="javascripts/admin_login.js"></script>
+<script src="javascripts/md5.js"></script>
+<script src="vendor/jquery.form.min.js"></script>
+</body>
+
+</html>

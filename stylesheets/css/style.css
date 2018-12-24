@@ -92,7 +92,7 @@ a:focus {
   display: block;
   position: relative;
   vertical-align: top;
-  margin-left: 220px;
+  margin-left: 320px;
   padding: 30px;
   background: #ececec;
   min-height: 100vh;
@@ -114,7 +114,7 @@ a:focus {
   height: 100%;
   float: left;
   position: relative;
-  width: 220px;
+  width: 320px;
   z-index: 1030;
 }
 
@@ -203,7 +203,7 @@ html.right-sidebar-opened .right-sidebar {
     position: fixed;
     z-index: 1010;
     top: 50px;
-    left: 220px;
+    left: 320px;
     right: 0;
     margin: 0;
     -webkit-transition-property: left;
@@ -1249,7 +1249,7 @@ blockquote {
 }
 .panel .panel-header,
 .panel .panel-footer {
-  padding: 10px 12px;
+  padding: 10px 12px;-ms-content-zoom-chaining: 
 }
 .panel .panel-content {
   padding: 12px;

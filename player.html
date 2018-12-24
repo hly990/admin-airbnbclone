@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en" class="fixed">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>mashupcloud Admin</title>
+		<!--<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+		<link rel="icon" type="image/png" sizes="192x192" href="favicon/android-icon-192x192.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">-->
+		<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="vendor/Font-Awesome-master/css/font-awesome.css">
+		<link rel="stylesheet" href="vendor/animate.css/animate.css">
+		<link rel="stylesheet" href="stylesheets/css/style.css">
+		<link href="vendor/select2/css/select2.min.css" rel="stylesheet" />
+		<link href="vendor/jquery-pager/Pager.css" rel="stylesheet" type="text/css" />
+
+		<link href="video-player/video-js.css" rel="stylesheet">
+		<link href="video-player/plugins/captions/videojs.caption.css" rel="stylesheet">
+		
+		<style>
+			.button {
+            background-color: #F1F1F1;
+            border: none;
+            /*color: white;*/
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+		</style>
+
+		<!------------------------------------->
+
+		<script type="text/javascript" src="vendor/template-web/template-web.min.js"></script>
+
+		<!------------------------------------->
+
+	</head>
+
+	<body>
+
+		<div class="wrap">
+			<div id="header" class="page-header"></div>
+
+			<div class="page-body">
+				<div class="left-sidebar">
+					<div class="left-sidebar-header">
+						<div class="left-sidebar-title">Navigation</div>
+						<div class="left-sidebar-toggle c-hamburger c-hamburger--htla hidden-xs" data-toggle-class="left-sidebar-collapsed" data-target="html">
+							<span></span>
+						</div>
+					</div>
+					<div id="left-nav" class="nano">
+						<div class="nano-content">
+							<nav id="nav">
+
+							</nav>
+						</div>
+					</div>
+				</div>
+				<div class="content">
+					<div class="content-header">
+						<div class="leftside-content-header">
+							<ul class="breadcrumbs">
+								<li><i class="fa fa-table" aria-hidden="true"></i>
+									<a href="#">全栈工程师学习视频</a>
+								</li>
+								<li>
+									<a>学习Vue2.0</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="row animated fadeInRight">
+						<div class="col-sm-12">
+							<!-- <h4 class="section-subtitle"><b>内容列表</b>
+								<a class="btn btn-primary pull-right " href="admin_article_add.html">Add</a>
+							</h4> -->
+							<div class="card">
+								<div class="card-body">
+									<!-- <h5 class="card-title">Card title</h5> -->
+									<p class="card-text">
+										<video id="my-video" class="video-js vjs-fluid vjs-big-play-centered"  controls preload="auto" width="640" height="264"
+										poster="MY_VIDEO_POSTER.jpg" data-setup='{"controls": true, "autoplay": false, "preload": "auto" }' webkit-playsinline="true" playsinline="true">
+										</video>
+									</p>
+									<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+									<button class="button" id="prev">Previous</button>
+									<button class="button" id="next">Next</button>
+								</div>
+							</div>
+
+							<!-- <div class="panel">
+								<div class="panel-content">
+									<div>
+										<video id="my-video" class="video-js vjs-fluid vjs-big-play-centered"  controls preload="auto" width="640" height="264"
+										poster="MY_VIDEO_POSTER.jpg" data-setup='{"controls": true, "autoplay": false, "preload": "auto" }' webkit-playsinline="true" playsinline="true">
+										<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that 
+											<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+										</p>
+										</video>
+										<button class="button" id="prev">Previous</button>
+										<button class="button" id="next">Next</button>
+									</div>
+									
+								</div>
+							</div> -->
+						</div>
+					</div>
+					
+				</div>
+				<a href="#" class="scroll-to-top"><i class="fa fa-angle-double-up"></i></a>
+			</div>
+		</div>
+		<script src="vendor/jquery/jquery-1.12.3.min.js"></script>
+		<script src="vendor/jquery-pager/jquery.pager.js"></script>
+		<script src="vendor/select2/js/select2.full.min.js"></script>
+
+		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+		<script src="vendor/nano-scroller/nano-scroller.js"></script>
+		<script src="javascripts/utils.js"></script>
+		<script src="javascripts/player.js"></script>
+
+		<script src="video-player/video.js"></script>
+		<!-- <script src="https://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script> -->
+		<script src='video-player/plugins/captions/videojs.caption.js'></script>
+
+		
+	</body>
+
+</html>

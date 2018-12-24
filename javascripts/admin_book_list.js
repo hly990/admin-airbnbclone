@@ -1,7 +1,7 @@
 /**
  * Created by helingyun on 2017/6/18.
  */
-API_URI_PRE="https://kfer.cn/airbnbclone/";
+API_URI_PRE = "http://kfer.cn/airbnbclone/";
 $(document).ready(function() {
 
     template.defaults.imports.parse = JSON.parse;
@@ -17,7 +17,7 @@ $(document).ready(function() {
     //	merge template
     templateFun({
         type: "get",
-        url: API_URI_PRE+"admin/area/admin_listBook.do",
+        url: API_URI_PRE + "admin/area/admin_listBook.do",
         selector: "#list",
         data: {
             pageNumber: 1,
@@ -29,7 +29,7 @@ $(document).ready(function() {
             infoRemove(function(id) {
                 $.ajax({
                     type: "get",
-                    url: API_URI_PRE+"admin/area/admin_deleteBook.do",
+                    url: API_URI_PRE + "admin/area/admin_deleteBook.do",
                     data: {
                         bookId: id
                     },
@@ -42,7 +42,7 @@ $(document).ready(function() {
                         $(".content-remove>.panel").fadeOut(50);
 
                         $(".removeTip").each(function() {
-                            if($(this).attr('data-id') == id) {
+                            if ($(this).attr('data-id') == id) {
                                 $(this).parent().parent().parent().remove();
                             }
                         })
@@ -57,8 +57,8 @@ $(document).ready(function() {
             $("#pageer .current").html(1);
 
             pageTurn(totalPage, {
-                detailURL: API_URI_PRE+"admin/area/admin_listBook.do",
-                deleteURL: API_URI_PRE+"admin/area/admin_deleteBook.do",
+                detailURL: API_URI_PRE + "admin/area/admin_listBook.do",
+                deleteURL: API_URI_PRE + "admin/area/admin_deleteBook.do",
                 getURL: "admin_book_detail.html?pk=",
                 editURL: "admin_book_edit.html?pk=",
             }, "#areaList", {
@@ -80,21 +80,21 @@ function search() {
 
         templateFun({
             type: "get",
-            url:  API_URI_PRE+"admin/area/admin_listAreaBy.do?searchContent="+$(".searchContent").val(),
+            url: API_URI_PRE + "admin/area/admin_listAreaBy.do?searchContent=" + $(".searchContent").val(),
             selector: "#areaList",
             data: {
                 pageNumber: 1,
                 pageSize: 10
             },
             fn: function(totalPage) {
-                $(".content-wait").addClass('wait');  // hidden wait ajax
+                $(".content-wait").addClass('wait'); // hidden wait ajax
 
                 //remove
                 removeTip();
                 infoRemove(function(id) {
                     $.ajax({
                         type: "get",
-                        url: API_URI_PRE+"admin/area/admin_deleteAreaByPK.do",
+                        url: API_URI_PRE + "admin/area/admin_deleteAreaByPK.do",
                         data: {
                             pk: id
                         },
@@ -107,7 +107,7 @@ function search() {
                             $(".content-remove>.panel").fadeOut(50);
 
                             $(".removeTip").each(function() {
-                                if($(this).attr('data-id') == id) {
+                                if ($(this).attr('data-id') == id) {
                                     $(this).parent().parent().parent().remove();
                                 }
                             })
@@ -123,11 +123,11 @@ function search() {
                 $("#pageer .current").html(1);
 
                 //merge detailURL
-                var detailURL =  API_URI_PRE+"admin/area/admin_listAreaBy.do?searchContent="+$(".searchContent").val();
+                var detailURL = API_URI_PRE + "admin/area/admin_listAreaBy.do?searchContent=" + $(".searchContent").val();
 
                 pageTurn(totalPage, {
                     detailURL: detailURL,
-                    deleteURL:  API_URI_PRE+"admin/area/admin_deleteAreaByPK.do",
+                    deleteURL: API_URI_PRE + "admin/area/admin_deleteAreaByPK.do",
                     getURL: "admin_area_detail.html?pk=",
                     editURL: "admin_area_edit.html?pk=",
                 }, "#carList", {
@@ -145,7 +145,7 @@ function search() {
 }
 
 
-function formatRepo (repo) {
+function formatRepo(repo) {
     if (repo.loading) return repo.text;
 
     var markup = "<div class='select2-result-repository clearfix'>" +
@@ -155,6 +155,6 @@ function formatRepo (repo) {
     return markup;
 }
 
-function formatRepoSelection (repo) {
+function formatRepoSelection(repo) {
     return repo.name || repo.text;
 }

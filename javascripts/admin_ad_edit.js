@@ -1,8 +1,8 @@
 /**
  * Created by helingyun on 2017/6/18.
  */
-API_URI_PRE="https://kfer.cn/airbnbclone/";
-IMAGE_ROOT="https://kfer.cn/";
+API_URI_PRE = "http://kfer.cn/airbnbclone/";
+IMAGE_ROOT = "http://kfer.cn/";
 
 $(document).ready(function() {
     $("#header").load("header.html");
@@ -14,7 +14,7 @@ $(document).ready(function() {
     var type = getQueryString("type");
 
     //  merge template
-    infoDetail("pk", API_URI_PRE+"admin/user/admin_getAd.do?pk=", "#info", function() {
+    infoDetail("pk", API_URI_PRE + "admin/user/admin_getAd.do?pk=", "#info", function() {
 
         var imageObj = {
             bigCoverURL: ''
@@ -43,12 +43,12 @@ function UploadFun(imageObj) {
 
         url: API_URI_PRE + '/admin/media/file_upload_1600_1100.do',
 
-        success: function (data) {
+        success: function(data) {
 
             if (data[0] == 'ERR') {
                 $(".content-imageError").removeClass('hidden');
                 $(".imageUploadMsg").html(data.msg);
-                $(".close").click(function () {
+                $(".close").click(function() {
                     $(".content-imageError").addClass('hidden');
                 })
                 return false;
@@ -62,11 +62,11 @@ function UploadFun(imageObj) {
             return true;
         },
 
-        error: function (err) {
+        error: function(err) {
 
             $(".content-imageError").removeClass('hidden');
             $(".imageUploadMsg").html('Upload picture failed, please upload again');
-            $(".close").click(function () {
+            $(".close").click(function() {
                 $(".content-imageError").addClass('hidden');
             })
 
@@ -94,7 +94,7 @@ function UploadFun(imageObj) {
 }
 
 function addInfo(imageObj) { //添加
-    $(".saveInfo")[0].onclick = function () {
+    $(".saveInfo")[0].onclick = function() {
         $(".content-wait").removeClass("hidden"); // wait ajax info
 
         var URLs = {}
@@ -124,7 +124,7 @@ function addInfo(imageObj) { //添加
             url: API_URI_PRE + "admin/user/admin_editAd.do",
             data: data,
             dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data[0] == 'OK') {
                     location.href = "admin_ad_list.html";
                 }
@@ -135,7 +135,7 @@ function addInfo(imageObj) { //添加
 
 
 function vaild(selector, tip, reg, contain1, contain2) {
-    $(selector).on('blur', function () {
+    $(selector).on('blur', function() {
 
         $(tip).addClass('hidden').parent().parent().removeClass('has-error has-success');
 
@@ -150,7 +150,7 @@ function vaild(selector, tip, reg, contain1, contain2) {
 }
 
 function deletePics(selector, url) {
-    $(selector).on('click', function () {
+    $(selector).on('click', function() {
         $(this).parent().addClass('hidden'); // remove img-box
 
         $(".content-wait").removeClass("hidden"); // show ajax wait
@@ -161,12 +161,12 @@ function deletePics(selector, url) {
             data: {
                 pk: $(this).attr('data-id') //data
             },
-            success: function (data) {
+            success: function(data) {
                 console.log(data);
                 $(".content-wait").addClass("hidden"); // show ajax wait
 
             },
-            error: function (data) {
+            error: function(data) {
                 $(".content-wait .three-bound").addClass('hidden');
 
                 $(".content-wait .content-error").removeClass('hidden'); //show the error tip
@@ -176,8 +176,8 @@ function deletePics(selector, url) {
 }
 
 function seeBigPics() {
-    $(".canBig").each(function () {
-        $(this).on('click', function () {
+    $(".canBig").each(function() {
+        $(this).on('click', function() {
             var picSrc = $(this).attr('src');
 
             $(".content-picBig").removeClass('hidden');
@@ -186,9 +186,7 @@ function seeBigPics() {
         });
     });
 
-    $(".picBig .close").on('click', function () {
+    $(".picBig .close").on('click', function() {
         $(this).parent().parent().addClass('hidden');
     });
 }
-
-
