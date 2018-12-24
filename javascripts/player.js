@@ -4,23 +4,34 @@
 //API_URI_PRE = "http://kfer.cn/airbnbclone/";
 
 $(document).ready(function() {
-    $("#header").load("header.html");
-    $("#nav").load("include.html", function() {
-        $("#area").addClass("has-child-item open-item active-item");
-        $("#admin_arealist").addClass("active-item");
+    $("#header").load("header.html",function() {
+        $.getScript("javascripts/template-script.min.js");
+        $.getScript("javascripts/template-init.min.js");
     });
+    // $("#nav").load("include.html", function() {
+    //     // $("#vue2-1").addClass("has-child-item open-item active-item");
+    //     // $("#vue2-1-1").addClass("active-item");
+    //     $.getScript("javascripts/template-script.min.js");
+    //     $.getScript("javascripts/template-init.min.js");
+    // });
+  
+    //nav 
+  
 
-    //	video begin
-    var objs,index,position,source,bbs;
+    //	modify leftBar active item
+    var objs,index,position,source,navId;
       index=0;
 
     urlinfo=window.location.href; //获取当前页面的url
     position = GetArgsFromHref(urlinfo,'position');
     source = GetArgsFromHref(urlinfo,'source');
-    bbs = GetArgsFromHref(urlinfo,'bbs');
 
-    $("#bbs").attr("href",bbs);
+    navId = $('#' + GetArgsFromHref(urlinfo,'navId'));
+    navId.parent().parent().addClass("has-child-item open-item active-item");
+    navId.addClass("active-item");
+    $('#'+GetArgsFromHref(urlinfo,'navId')+' a').css("color","#ffffff")
     
+    //video.js
     var player = videojs('my-video', {
         fluid: true,
         controls: true,
@@ -49,6 +60,8 @@ $(document).ready(function() {
         });
 
         index = parseInt(position) 
+
+        player.play()
       });
 
       $("#prev").click(function(){
